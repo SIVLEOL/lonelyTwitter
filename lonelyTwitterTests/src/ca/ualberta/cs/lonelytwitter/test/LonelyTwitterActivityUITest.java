@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.ViewAsserts;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -42,5 +43,22 @@ public class LonelyTwitterActivityUITest extends
 		assertNotNull(activity.findViewById(ca.ualberta.cs.lonelytwitter.R.id.save));
 		textInput.setText(text);
 		((Button) activity.findViewById(ca.ualberta.cs.lonelytwitter.R.id.save)).performClick();
+	}
+	
+	public void testAddTweet() throws Throwable{
+		runTestOnUiThread(new Runnable(){
+		
+			@Override
+			public void run() {
+				LonelyTwitterActivity LonelyActivity = (LonelyTwitterActivity) getActivity();
+				ArrayAdapter<NormalTweetModel> adapter = LonelyActivity.getAdapter();
+				int count = adapter.getCount();
+				makeTweet("test string ");
+				assertEquals(count+1, adapter.getCount());
+				assertTrue(adapter.getItem(1) instanceof NormalTweetModel);
+				assertEquals("test string ", adapter.getItem(1));
+			}
+			
+		});
 	}
 }

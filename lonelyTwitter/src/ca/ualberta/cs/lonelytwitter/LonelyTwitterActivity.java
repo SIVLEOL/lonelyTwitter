@@ -58,6 +58,10 @@ public class LonelyTwitterActivity extends Activity {
 				R.layout.list_item, tweets);
 		oldTweetsList.setAdapter(adapter);
 	}
+	
+	public ArrayAdapter<NormalTweetModel> getAdapter(){
+		return adapter;
+	}
 
 	private ArrayList<NormalTweetModel> loadFromFile() {
 		ArrayList<NormalTweetModel> tweets = new ArrayList<NormalTweetModel>();
